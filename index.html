@@ -1,0 +1,149 @@
+<!DOCTYPE html -->
+    <html>
+        <head>
+            
+            <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+            <script src="js/jquery.min.js"></script>
+            <script src="js/jquery.mobile-1.4.5.min.js"></script>
+            <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function inicio(){
+                    //alert("listo");
+                    var btnEnvioA=$("#enviarI");
+                    btnEnvioA.click(function enviarDatos(){
+                        //alert("listo");
+                        var noC=$("#numcontrol").val();
+                        var nom=$("#nombre").val();
+                        var appp=$("#apep").val();
+                        var appm=$("#apem").val();
+                        var car=$("#carrera").val();
+                        var semestre=$("#semestre").val();
+                        var tel=$("#tel").val();
+                        var email=$("#email").val();
+                        var direc=$("#direccion").val();
+                        
+                    
+                        $.ajax({
+                            type:"POST",
+                            url:"http://silvaleo.260mb.net/envioi.php",
+                            data: "numcontrol="+noC+"&nombre="+nom+"&apep="+appp+"&apem="+appm+"&carrera="+car+"&semestre="+semestre+"&tel="+tel+"&email="+email+"&direccion="+direc,
+                            success: recepcion
+                            });
+                        });
+                    function recepcion(datos) {
+                        //alert("listo: "+datos);
+                        var resp=$("#respuesta");
+                        resp.html(datos);
+                    }
+                    var btnEnvioB=$("#enviarC");
+                    btnEnvioB.click(function enviarDatos(){
+                        
+                        var noC=$("#numcontrol1").val();
+                        var mat=$("#materia").val();
+                        var pPar=$("#1parcial").val();
+                        var sPar=$("#2parcial").val();
+                        var tPar=$("#3parcial").val();
+                        var cPar=$("#4parcial").val();
+                        
+                        $.ajax({
+                            type:"POST",
+                            url:"http://silvaleo.260mb.net/envioc.php",
+                            data:"numcontrol1="+noC+"&materia="+mat+"&1parcial="+pPar+"&2parcial="+sPar+"&3parcial="+tPar+"&4parcial="+cPar,
+                            success: recepcion1
+                            });
+                        
+                        });
+                    function recepcion1(datos) {
+                        var resp=$("#respuesta2");
+                        resp.html(datos);
+                    }
+                });
+            </script>
+            
+        </head>
+        <body onload="inicio()">
+            <div data-role="page" id="principal" name="principal">
+                <div data-role="header">
+                    <p style="text-align: center">Bienvenidos al SRICAM del ITSL</p>
+                </div>
+                <div data-role="content">
+                    <a href="#pag1" data-role="button" data-transition="pop">Registro Alumnos</a>
+                    <a href="#pag2" data-role="button" data-transition="pop">Registro Calificaciones</a>
+                </div>
+                <div data-role="footer">
+                    <p style="text-align: center">Todos los derechos reservardos</p>
+                </div>
+            </div>
+            <div data-role="page" id="pag1" name="pag1">
+                <div data-role="header">
+                    <p style="text-align: center">Registro de informacion del Alumnos</p>
+                </div>
+                <div data-role="content">
+                    <form method="post" action="envio.php">
+                        <div class="ui-field-contain">
+                            <label>No. de Control:</label>
+                            <input type="text" id="numcontrol" name="numcontrol"><br/>
+                            <label>Nombre:</label>
+                            <input type="text" id="nombre" name="nombre"><br/>
+                            <label>Apellido Paterno:</label>
+                            <input type="text" id="apep" name="apep"><br/>
+                            <label>Apellido Materno:</label>
+                            <input type="text" id="apem" name="apem"><br/>
+                            <label>Carrera:</label>
+                            <input type="text" id="carrera" name="carrera"><br/>
+                            <label>Semestre:</label>
+                            <input type="text" id="semestre" name="semestre"><br/>
+                            <label>Teléfono:</label>
+                            <input type="number" id="tel" name="tel"><br/>
+                            <label>Correo:</label>
+                            <input type="email" id="email" name="email"><br/>
+                            <label>Dirección:</label>
+                            <input type="text" id="direccion" name="direccion"><br/>
+                        </div>
+                        <input type="button" name="enviarI" id="enviarI" value="Enviar Información">
+                    </form>
+                    <div id="respuesta">
+                        
+                    </div>
+                    
+                </div>
+                <div data-role="foter">
+                    <a href="#principal" data-role="button" data-transition="flip" data-add-back-btn="true" data-icon="home">Regresar</a>
+                    <p style="text-align: center">Derechos reservados</p>
+                </div>
+                
+            </div>
+            <div data-role="page" id="pag2" name="pag2">
+                <div data-role="header">
+                    <p style="text-align: center">Registro de Calificaciones de Alumnos</p>
+                </div>
+                <div data-role="content">
+                    <form method="post" action="envio.php">
+                        <div class="ui-field-contain">
+                            <label>No. de Control:</label>
+                            <input type="text" id="numcontrol1" name="numcontrol1"><br/>
+                            <label>Materia:</label>
+                            <input type="text" id="materia" name="materia"><br/>
+                            <label>Calificación 1er Parcial:</label>
+                            <input type="text" id="1parcial" name="1parcial" value="0"><br/>
+                            <label>Calificación 2do Parcial:</label>
+                            <input type="text" id="2parcial" name="2parcial" value="0"><br/>
+                            <label>Calificación 3er Parcial:</label>
+                            <input type="text" id="3parcial" name="3parcial" value="0"><br/>
+                            <label>Calificación 4to Parcial:</label>
+                            <input type="text" id="4parcial" name="4parcial" value="0"><br/>
+                            
+                        </div>
+                        <input type="button" name="enviarC" id="enviarC" value="Enviar Calificaciones">
+                    </form>
+                    <div id="respuesta2">
+                        
+                    </div>
+                </div>
+                <div data-role="foter">
+                    <a href="#principal" data-role="button" data-transition="flip" data-add-back-btn="true" data-icon="home">Regresar</a>
+                    <p style="text-align: center">Derechos reservados</p>
+                </div>
+            </div>
+        </body>
+    </html>
